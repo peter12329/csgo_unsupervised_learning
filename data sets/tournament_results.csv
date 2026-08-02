@@ -1,0 +1,41 @@
+tournament_id,date,year,month,tournament_name,location,tier,prize_pool_usd,winner_team,runner_up_team,mvp_player,peak_viewers_k,is_major,is_cs2_era
+T001,2013-11-28,2013,11,DreamHack Winter 2013,Sweden,Major,250000,Fnatic,NiP,JW,70,1,0
+T002,2014-03-13,2014,3,EMS One Katowice 2014,Poland,Major,250000,Virtus.pro,NiP,Snax,110,1,0
+T003,2014-09-12,2014,9,ESL One Cologne 2014,Germany,Major,250000,NiP,Fnatic,f0rest,170,1,0
+T004,2014-12-19,2014,12,DreamHack Winter 2014,Sweden,Major,250000,LDLC,NiP,shox,128,1,0
+T005,2015-03-19,2015,3,ESL One Katowice 2015,Poland,Major,250000,Fnatic,NiP,olofmeister,175,1,0
+T006,2015-08-23,2015,8,ESL One Cologne 2015,Germany,Major,250000,EnVyUs,Fnatic,kennyS,210,1,0
+T007,2015-11-08,2015,11,DreamHack Cluj-Napoca 2015,Romania,Major,250000,EnVyUs,Na'Vi,apEX,265,1,0
+T008,2016-04-03,2016,4,MLG Columbus 2016,USA,Major,1000000,Luminosity,Na'Vi,coldzera,1300,1,0
+T009,2016-07-10,2016,7,ESL One Cologne 2016,Germany,Major,1000000,SK Gaming,Liquid,coldzera,1100,1,0
+T010,2017-01-29,2017,1,ELEAGUE Atlanta 2017,USA,Major,1000000,Astralis,Virtus.pro,Kjaerbye,1100,1,0
+T011,2017-07-16,2017,7,PGL Krakow 2017,Poland,Major,1000000,Gambit,Immortals,Hobbit,770,1,0
+T012,2018-01-28,2018,1,ELEAGUE Boston 2018,USA,Major,1000000,Cloud9,FaZe,tarik,1090,1,0
+T026,2018-08-19,2018,8,ESL One Cologne 2018,Germany,Tier 1,300000,Na'Vi,BIG,s1mple,770,0,0
+T013,2018-09-23,2018,9,FACEIT London 2018,UK,Major,1000000,Astralis,Na'Vi,device,990,1,0
+T014,2019-03-03,2019,3,IEM Katowice 2019,Poland,Major,1000000,Astralis,ENCE,device,1230,1,0
+T027,2019-08-04,2019,8,ESL One Cologne 2019,Germany,Tier 1,300000,Team Liquid,Vitality,EliGE,990,0,0
+T015,2019-09-08,2019,9,StarLadder Berlin 2019,Germany,Major,1000000,Astralis,AVANGAR,device,1056,1,0
+T028,2020-03-01,2020,3,IEM Katowice 2020,Poland,Tier 1,1000000,G2 Esports,Na'Vi,kennyS,710,0,0
+T016,2020-11-29,2020,11,BLAST Premier Fall 2020,Online,Major,425000,Astralis,OG,device,512,1,0
+T029,2021-02-28,2021,2,IEM Katowice 2021,Online,Tier 1,1000000,Gambit,Virtus.pro,Hobbit,925,0,0
+T017,2021-11-07,2021,11,PGL Stockholm 2021,Sweden,Major,2000000,Na'Vi,G2,s1mple,2748,1,0
+T039,2021-12-19,2021,12,BLAST Premier World Final 2021,Denmark,Tier 1,1000000,Na'Vi,G2,electroNic,860,0,0
+T030,2022-02-27,2022,2,IEM Katowice 2022,Poland,Tier 1,1000000,FaZe,G2,rain,1052,0,0
+T018,2022-05-22,2022,5,PGL Antwerp 2022,Belgium,Major,1000000,FaZe,Na'Vi,broky,1996,1,0
+T031,2022-08-07,2022,8,IEM Cologne 2022,Germany,Tier 1,1000000,FaZe,NAVI,karrigan,910,0,0
+T037,2022-10-09,2022,10,ESL Pro League Season 16,Malta,Tier 1,850000,Vitality,Cloud9,ZywOo,540,0,0
+T019,2022-11-13,2022,11,IEM Rio 2022,Brazil,Major,1250000,Outsiders,Heroic,Jame,1410,1,0
+T032,2023-02-12,2023,2,IEM Katowice 2023,Poland,Tier 1,1000000,Heroic,FaZe,TeSeS,1080,0,0
+T038,2023-04-09,2023,4,ESL Pro League Season 17,Malta,Tier 1,850000,FaZe,ENCE,broky,310,0,0
+T020,2023-05-21,2023,5,BLAST.tv Paris 2023,France,Major,1250000,Vitality,GamerLegion,ZywOo,1761,1,0
+T033,2023-08-06,2023,8,IEM Cologne 2023,Germany,Tier 1,1000000,G2,ENCE,NiKo,685,0,0
+T034,2024-02-11,2024,2,IEM Katowice 2024,Poland,Tier 1,1000000,Team Spirit,FaZe,donk,823,0,1
+T021,2024-03-31,2024,3,PGL Major Copenhagen 2024,Denmark,Major,1250000,NAVI,FaZe,jL,1797,1,1
+T040,2024-07-21,2024,7,Esports World Cup 2024 CS,Saudi Arabia,Tier 1,1000000,Team Spirit,FaZe,donk,680,0,1
+T035,2024-08-18,2024,8,IEM Cologne 2024,Germany,Tier 1,1000000,Vitality,NAVI,ZywOo,1050,0,1
+T022,2024-12-15,2024,12,Perfect World Shanghai 2024,China,Major,1250000,Team Spirit,FaZe,donk,1330,1,1
+T023,2025-06-22,2025,6,BLAST.tv Austin Major 2025,USA,Major,1250000,Vitality,The MongolZ,ZywOo,1789,1,1
+T036,2025-08-03,2025,8,IEM Cologne 2025,Germany,Tier 1,1250000,Team Spirit,MOUZ,donk,1139,0,1
+T024,2025-12-14,2025,12,StarLadder Budapest Major 2025,Hungary,Major,1250000,Vitality,FaZe,ZywOo,1500,1,1
+T025,2026-06-21,2026,6,IEM Cologne Major 2026,Germany,Major,1250000,Falcons,FURIA,m0NESY,2750,1,1
