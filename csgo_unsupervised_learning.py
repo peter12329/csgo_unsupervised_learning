@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 import matplotlib.pyplot as plt
 
 #data sets
@@ -17,21 +18,6 @@ player_stats = pd.concat([player_stats, role_dummies], axis=1)
 #feature variables 
 features = ["peak_hltv_rating", "career_kd_ratio", "career_headshot_pct"] + role_dummies.columns.tolist() #feature variables in the player_stats
 
-#scaler
-X = StandardScaler().fit_transform(player_stats[features])
-
-#kmeans
-kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
-kmeans.fit(X)
-labels = kmeans.predict(X)
-
-#labels
-print(labels)
-print("")
-
-#cluster display
-player_stats["cluster"] = labels
-
 #giving clusters with name
 cluster_labels = {
     0: "Rifler",
@@ -40,18 +26,52 @@ cluster_labels = {
     3: "Outlier"
 }
 
+#pipeline
+scaler = StandardScaler()
+kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
+pipeline = make_pipeline(scaler, kmeans)
+pipeline.fit(player_stats[features]) 
+labels = pipeline.predict(player_stats[features])
+
+player_stats["cluster"] = labels
 player_stats["cluster_label"] = player_stats["cluster"].map(cluster_labels)
 
-#cluster labels:
-print(player_stats.groupby("cluster")[features].mean().round(2))
-
-
-#cross tabulation trying to find corr
+#cross tabulation
 ct = pd.crosstab(player_stats["primary_role"], player_stats["cluster_label"])
+ct_pct = pd.crosstab(player_stats["primary_role"], player_stats["cluster_label"], normalize="columns") * 100
+
+
+#printing
+print(labels)
+print("")
+print(player_stats.groupby("cluster")[features].mean().round(2))
+print("")
+print("Inertia:", round(kmeans.inertia_, 2))
+print("")
 print(ct)
 print("")
-ct_pct = pd.crosstab(player_stats["primary_role"], player_stats["cluster_label"], normalize="columns") * 100
-print(ct_pct.round(1))
+print(ct_pct.round(2))
+print("")
+
+
+#inertia 
+inertias = []
+k_range = range(1, 7)
+for k in k_range:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X)
+    inertias.append(km.inertia_)
+
+plt.figure()
+plt.plot(k_range, inertias, marker="o")
+plt.axvline(x=4, color="red", linestyle="--", label="k=4 (chosen)")
+plt.xlabel("Number of clusters (k)")
+plt.ylabel("Inertia")
+plt.title("Elbow Method")
+plt.legend()
+plt.savefig("elbow.png")
+plt.show()
+
 
 #plt display 
 scatter = plt.scatter(player_stats["career_kd_ratio"], player_stats["career_headshot_pct"], 
