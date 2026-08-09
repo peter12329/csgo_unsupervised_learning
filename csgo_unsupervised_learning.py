@@ -2,7 +2,9 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
+from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
+
 
 #data sets
 game_economics = pd.read_csv("data sets/game_economics.csv")
@@ -53,13 +55,22 @@ print("")
 print(ct_pct.round(2))
 print("")
 
+#cluster hierarchy
+X_scaled = pipeline.named_steps["standardscaler"].transform(player_stats[features])
+mergings = linkage(X_scaled, method="complete")
+plt.figure(figsize=(10, 14))
+dendrogram(mergings, labels=player_stats["player_handle"].values, orientation="left", leaf_font_size=6)
+plt.title("Player Cluster Hierarchy")
+plt.ylabel("Distance")
+plt.savefig("dendrogram.png")
+plt.show()
 
-#inertia 
+#inertia plot display
 inertias = []
 k_range = range(1, 7)
 for k in k_range:
     km = KMeans(n_clusters=k, random_state=42, n_init=10)
-    km.fit(X)
+    km.fit(player_stats[features])
     inertias.append(km.inertia_)
 
 plt.figure()
@@ -70,10 +81,10 @@ plt.ylabel("Inertia")
 plt.title("Elbow Method")
 plt.legend()
 plt.savefig("elbow.png")
-plt.show()
+#plt.show()
 
 
-#plt display 
+#scatterplot display 
 scatter = plt.scatter(player_stats["career_kd_ratio"], player_stats["career_headshot_pct"], 
                        c=player_stats["cluster"], cmap="viridis")
 plt.xlabel("K/D Ratio")
