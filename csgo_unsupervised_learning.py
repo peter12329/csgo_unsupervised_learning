@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
-
+from sklearn.manifold import TSNE
 
 #data sets
 game_economics = pd.read_csv("data sets/game_economics.csv")
@@ -63,7 +63,6 @@ dendrogram(mergings, labels=player_stats["player_handle"].values, orientation="l
 plt.title("Player Cluster Hierarchy")
 plt.ylabel("Distance")
 plt.savefig("dendrogram.png")
-plt.show()
 
 #inertia plot display
 inertias = []
@@ -81,8 +80,18 @@ plt.ylabel("Inertia")
 plt.title("Elbow Method")
 plt.legend()
 plt.savefig("elbow.png")
-#plt.show()
 
+#t-SNE transformation
+tsne = TSNE(learning_rate=100)
+tsne_features = tsne.fit_transform(X_scaled)
+
+xs = tsne_features[:, 0]
+ys = tsne_features[:, 1]
+plt.figure()
+plt.scatter(xs, ys, c=player_stats["cluster"], cmap="viridis")
+plt.title("t-SNE of Player Clusters")
+plt.savefig("tsne.png")
+plt.show()
 
 #scatterplot display 
 scatter = plt.scatter(player_stats["career_kd_ratio"], player_stats["career_headshot_pct"], 
@@ -91,4 +100,5 @@ plt.xlabel("K/D Ratio")
 plt.ylabel("Headshot %")
 plt.title("Player Clusters")
 plt.legend(*scatter.legend_elements(), title="Cluster")
-#plt.show()
+
+plt.show()
