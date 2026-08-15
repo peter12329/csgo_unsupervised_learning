@@ -82,7 +82,7 @@ plt.legend()
 plt.savefig("elbow.png")
 
 #t-SNE transformation
-tsne = TSNE(learning_rate=100)
+tsne = TSNE(learning_rate=100, perplexity=10, random_state=42)
 tsne_features = tsne.fit_transform(X_scaled)
 
 xs = tsne_features[:, 0]
