@@ -5,6 +5,8 @@ from sklearn.pipeline import make_pipeline
 from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+
 
 #data sets
 game_economics = pd.read_csv("data sets/game_economics.csv")
@@ -92,6 +94,33 @@ plt.scatter(xs, ys, c=player_stats["cluster"], cmap="viridis")
 plt.title("t-SNE of Player Clusters")
 plt.savefig("tsne.png")
 plt.show()
+
+#PCA
+pca = PCA()
+pca.fit(X_scaled)
+plt.figure()
+plt.bar(range(1, len(pca.explained_variance_ratio_) + 1), pca.explained_variance_ratio_)
+plt.xlabel("PCA component")
+plt.ylabel("Variance explained")
+plt.title("PCA Explained Variance")
+plt.savefig("pca_variance.png")
+
+#PCA 2D 
+pca2 = PCA(n_components=2)
+pca_features = pca2.fit_transform(X_scaled)
+
+xs = pca_features[:, 0]
+ys = pca_features[:, 1]
+plt.figure()
+plt.scatter(xs, ys, c=player_stats["cluster"], cmap="viridis")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("PCA of Player Clusters")
+plt.savefig("pca_clusters.png")
+
+print("PCA 2D cumulative explained variance:", round(pca2.explained_variance_ratio_.sum(), 3))
+print("")
+
 
 #scatterplot display 
 scatter = plt.scatter(player_stats["career_kd_ratio"], player_stats["career_headshot_pct"], 
