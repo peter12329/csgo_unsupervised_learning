@@ -6,7 +6,7 @@ from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
-
+from sklearn.metrics import silhouette_score
 
 #data sets
 game_economics = pd.read_csv("data sets/game_economics.csv")
@@ -31,11 +31,16 @@ cluster_labels = {
 }
 
 #pipeline
+
 scaler = StandardScaler()
 kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
 pipeline = make_pipeline(scaler, kmeans)
 pipeline.fit(player_stats[features]) 
 labels = pipeline.predict(player_stats[features])
+
+#X scaled
+X_scaled = pipeline.named_steps["standardscaler"].transform(player_stats[features])
+
 
 player_stats["cluster"] = labels
 player_stats["cluster_label"] = player_stats["cluster"].map(cluster_labels)
@@ -58,13 +63,13 @@ print(ct_pct.round(2))
 print("")
 
 #cluster hierarchy
-X_scaled = pipeline.named_steps["standardscaler"].transform(player_stats[features])
 mergings = linkage(X_scaled, method="complete")
 plt.figure(figsize=(10, 14))
 dendrogram(mergings, labels=player_stats["player_handle"].values, orientation="left", leaf_font_size=6)
 plt.title("Player Cluster Hierarchy")
 plt.ylabel("Distance")
 plt.savefig("dendrogram.png")
+
 
 #inertia plot display
 inertias = []
@@ -82,6 +87,30 @@ plt.ylabel("Inertia")
 plt.title("Elbow Method")
 plt.legend()
 plt.savefig("elbow.png")
+
+# silhouette score
+silhouette_scores = []
+
+for k in range(2, 7):
+
+    km = KMeans(
+        n_clusters=k,
+        random_state=42,
+        n_init=10
+    )
+
+    labels_k = km.fit_predict(X_scaled)
+
+    score = silhouette_score(X_scaled, labels_k)
+
+    silhouette_scores.append(score)
+    
+print(silhouette_scores)
+
+#Cluster stat
+print("Cluster sizes:")
+print(player_stats["cluster_label"].value_counts())
+print("")
 
 #t-SNE transformation
 tsne = TSNE(learning_rate=100, perplexity=10, random_state=42)
@@ -121,7 +150,6 @@ plt.savefig("pca_clusters.png")
 print("PCA 2D cumulative explained variance:", round(pca2.explained_variance_ratio_.sum(), 3))
 print("")
 
-
 #scatterplot display 
 scatter = plt.scatter(player_stats["career_kd_ratio"], player_stats["career_headshot_pct"], 
                        c=player_stats["cluster"], cmap="viridis")
@@ -129,5 +157,6 @@ plt.xlabel("K/D Ratio")
 plt.ylabel("Headshot %")
 plt.title("Player Clusters")
 plt.legend(*scatter.legend_elements(), title="Cluster")
+
 
 plt.show()
