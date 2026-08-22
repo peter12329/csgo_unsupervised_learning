@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 from sklearn.metrics import silhouette_score
+from sklearn.decomposition import TruncatedSVD 
 
 #data sets
 game_economics = pd.read_csv("data sets/game_economics.csv")
@@ -157,6 +158,19 @@ plt.xlabel("K/D Ratio")
 plt.ylabel("Headshot %")
 plt.title("Player Clusters")
 plt.legend(*scatter.legend_elements(), title="Cluster")
+plt.show()
 
+#SVD, even data is not sparse XD
+svd = TruncatedSVD(n_components=2, random_state=42)
+svd_features = svd.fit_transform(X_scaled)
 
+svd_xs = svd_features[:, 0]
+svd_ys = svd_features[:, 1]
+
+plt.figure()
+plt.scatter(svd_xs, svd_ys, c=player_stats["cluster"], cmap="viridis")
+plt.xlabel("SVD1")
+plt.ylabel("SVD2")
+plt.title("TruncatedSVD of Player Clusters")
+plt.savefig("svd_clusters.png")
 plt.show()
